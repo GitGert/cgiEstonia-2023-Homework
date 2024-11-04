@@ -9,6 +9,8 @@ import { BooksListComponent } from './components/books-list/books-list.component
 import { BookDetailComponent } from './components/book-detail/book-detail.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { RouterLink } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,11 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
+    // RouterLink,
+    // BrowserModule,
+    // NgModule
   ],
   providers: [],
   bootstrap: [AppComponent]

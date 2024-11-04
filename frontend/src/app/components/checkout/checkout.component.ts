@@ -3,12 +3,17 @@ import { Observable } from 'rxjs';
 import { Checkout } from 'src/app/models/checkout';
 import { Page } from 'src/app/models/page';
 import { CheckoutService } from '../../services/checkout.service';
+import { RouterLink } from '@angular/router';
+import { BrowserModule } from '@angular/platform-browser';
 
 @Component({
+  // standalone : true,
   selector: 'app-checkout',
+  // imports: [RouterLink, BrowserModule],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css']
 })
+
 export class CheckoutComponent {
 
   checkouts$!: Observable<Page<Checkout>>;
@@ -25,9 +30,6 @@ export class CheckoutComponent {
 
 
   ngOnInit(): void {
-    // TODO this observable should emit books taking into consideration pagination, sorting and filtering options.
     this.checkouts$ = this.CheckoutService.getCheckouts({});
-
   }
-
 }

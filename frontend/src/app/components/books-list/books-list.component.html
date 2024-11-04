@@ -1,6 +1,21 @@
 <div class="container mat-elevation-z4">
+ 
   <mat-card>
     <mat-card-title>Books</mat-card-title>
+    <p>page: {{pageIndex+1}}</p>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <button style="width: 48%;" (click)="incrementPageIndex()" [disabled]="pageIndex+1 === totalPages">+</button>
+      <button style="width: 48%;" (click)="decreasePageIndex()"  [disabled]="pageIndex < 1" >-</button>
+    </div>
+
+    <select [(ngModel)]="pageSize" (change)="onSelectionChange(pageSize)">
+      <option *ngFor="let value of dropdownValues" [value]="value">
+        {{ value }}
+      </option>
+    </select>
+    
+
+
     <mat-card-content>
       <mat-nav-list *ngIf="(books$ | async) as books">
         <a mat-list-item *ngFor="let book of books.content" [routerLink]="['/books', book.id]">
@@ -10,4 +25,3 @@
     </mat-card-content>
   </mat-card>
 </div>
-

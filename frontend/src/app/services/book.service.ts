@@ -18,6 +18,7 @@ export class BookService {
   ) {
   }
 
+  //it seems like I should call getBooks with the previous response body aka PageRequest.
   getBooks(filter: Partial<PageRequest>): Observable<Page<Book>> {
     const url = this.baseUrl + '/getBooks';
     const params = RestUtil.buildParamsFromPageRequest(filter);
