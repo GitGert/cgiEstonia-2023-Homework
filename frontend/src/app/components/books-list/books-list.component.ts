@@ -14,12 +14,7 @@ import { BrowserModule } from '@angular/platform-browser';
   styleUrls: ['./books-list.component.scss']
 })
 
-// export interface PageRequest {
-//   pageIndex: number;
-//   pageSize: number;
-//   sort?: string;
-//   direction?: SortDirection;
-// }
+
 
 export class BooksListComponent implements OnInit {
   books$!: Observable<Page<Book>>;
@@ -52,14 +47,12 @@ export class BooksListComponent implements OnInit {
   }
 
   incrementPageIndex(){
-    console.log("wut")
     this.pageIndex += 1
     this.requestBooks()
   }
   
   
   decreasePageIndex(){
-    console.log("wut")
     this.pageIndex -= 1
     this.requestBooks()
   }

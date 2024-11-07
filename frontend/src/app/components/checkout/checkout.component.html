@@ -1,18 +1,46 @@
-<div class="container mat-elevation-z4">
-    <mat-card>
+<div class="container mat-elevation-z4" style="padding: 0px;">
+  <p>page: {{pageIndex+1}}</p>
+    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+      <button style="width: 48%;" (click)="incrementPageIndex()" [disabled]="pageIndex+1 === totalPages">+</button>
+      <button style="width: 48%;" (click)="decreasePageIndex()"  [disabled]="pageIndex < 1" >-</button>
+    </div>
+    <select [(ngModel)]="pageSize" (change)="onSelectionChange(pageSize)">
+      <option *ngFor="let value of dropdownValues" [value]="value">
+        {{ value }}
+      </option>
+    </select>
+  <button (click)="orderByDueDate()">orderByDueDate</button>
+    <mat-card style="padding: 0px;">
       <mat-card-title>checkouts</mat-card-title>
-      <mat-card-content>
-        <mat-nav-list *ngIf="(checkouts$ | async) as checkouts">
-          <div mat-list-item *ngFor="let checkout of checkouts.content" [routerLink]="['/checkouts']">
-            {{checkout.borrowerFirstName}}
-            {{checkout.borrowerLastName}}
-            {{"has rented out "}}
-            {{checkout.borrowedBook.title}}
-            {{"at"}}
-            {{checkout.checkedOutDate}}
-            {{checkout.returnedDate  ? "has Returned it at" +checkout.returnedDate : "Has not yet returned it"}}
-          </div>
+      <mat-card-content style="padding: 0px;">
+
+        <!-- SORT BY: due date, -->
+
+        <mat-nav-list style="gap: 20px;" *ngIf="(checkouts$ | async) as checkouts">
+          <mat-card *ngFor="let checkout of checkouts.content" style="margin-bottom: 15px; padding: 16px;">
+            <mat-card-header>
+              <mat-card-title>
+                {{ checkout.borrowerFirstName }} {{ checkout.borrowerLastName }}
+              </mat-card-title>
+            </mat-card-header>
+        
+            <mat-card-content>
+              <p><strong>Book Title:</strong> {{ checkout.borrowedBook.title }}</p>
+              <p><strong>Checked Out Date:</strong> {{ checkout.checkedOutDate | date: 'mediumDate' }}</p>
+              <p><strong>Due Date:</strong> {{ checkout.dueDate | date: 'mediumDate' }}</p>
+              <p *ngIf="checkout.returnedDate"><strong>Returned Date:</strong> {{ checkout.returnedDate | date: 'mediumDate' }}</p>
+              <p *ngIf="!checkout.returnedDate" style="color: red;"><strong>Status:</strong> Not yet returned</p>
+            </mat-card-content>
+        
+            <mat-card-actions>
+              <button mat-button [routerLink]="['/checkouts', checkout.id]">View Details</button>
+            </mat-card-actions>
+          </mat-card>
         </mat-nav-list>
+        
+      
       </mat-card-content>
     </mat-card>
   </div>
+
+  <!-- Using backend api endpoint /getCheckouts, also implement the checkouts view. Suppport paging and sorting for both views -->
